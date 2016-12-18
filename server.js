@@ -11,7 +11,7 @@ var passphrase = "Droplet-05-01";
 app.use(express.static(__dirname));
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/indexv03.html');
 });
 
 // server = http.Server(app);
@@ -54,6 +54,11 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         sockets.splice(sockets.indexOf(socket.id), 1);
         io.emit('remove-user', socket.id);
+    });
+
+
+    socket.on('message.send', function (data){
+        io.emit('message.sent', data);
     });
 
     sockets.push(socket.id);
